@@ -23,8 +23,10 @@
     opacity .5s, visibility .5s;
   
   z-index: 1000;
+  border-radius: 50%;
+  overflow: hidden;
 }
-#button::after {
+#button i::after {
   content: "\f077";
   font-family: FontAwesome;
   font-weight: normal;
@@ -76,12 +78,28 @@
   font-style: italic;
   color: #96a2a7;
 }
+#bls__back-top {
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    bottom: 0;
+    background-color: #111;
+}
+#button i{
+  mix-blend-mode: difference;
+}
+.text-white{
+  color: #fff;
+}
     </style>
 </head>
 <body>
   
 <!-- Back to top button -->
-<a id="button" class="hide"></a>
+<a id="button" class="hide">
+  <span id="bls__back-top"></span>
+  <i class=" icon-chevrons-up fs-18 text-white"></i>
+</a>
 
 
 <!-- Some content to fill up the page -->
@@ -130,13 +148,26 @@
 </div>
 <script>
     var btn = document.getElementById('button');
+    function backToTop() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  if (document.getElementById("bls__back-top")) {
+    document.getElementById("bls__back-top").style.height = scrolled + "%";
+  }
+}
 
 window.addEventListener('scroll', function () {
-    if (window.scrollY > 1000) {
+  let scrolled = window.scrollY
+    if (window.scrollY > 100) {
         btn.classList.remove('hide');
     } else {
         btn.classList.add('hide');
     }
+
+    backToTop()
 });
 
 btn.addEventListener('click', function (e) {
@@ -146,6 +177,7 @@ btn.addEventListener('click', function (e) {
 
 function scrollToTop() {
     var currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    
 
     if (currentScroll > 0) {
         window.requestAnimationFrame(scrollToTop);
@@ -156,3 +188,14 @@ function scrollToTop() {
 </script>
 </body>
 </html>
+
+function backToTop() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  if (document.getElementById("bls__back-top")) {
+    document.getElementById("bls__back-top").style.height = scrolled + "%";
+  }
+}
